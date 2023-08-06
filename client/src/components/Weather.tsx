@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from 'axios';
+import dateFormat from "../util/dateFormat";
 
 type WeatherDataObject = {
   latitude?: number,
@@ -43,19 +44,6 @@ const Weather = () => {
   
   const days : number[] = [0, 1, 2, 3, 4, 5, 6];
 
-  const dateFormat = (dateRaw : string | number) : string=> {
-    // return dateRaw;
-    let date: string | number = '';
-    if (typeof dateRaw === "string"){
-      date = `${dateRaw}T00:00:00Z`;
-    }
-    else if (typeof dateRaw === "number"){
-      date = dateRaw * 1000;
-    }
-
-
-    return new Date(date).toString();
-}
   
   useEffect(() => {
 
