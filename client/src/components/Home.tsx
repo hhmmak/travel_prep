@@ -1,7 +1,7 @@
 import Weather from "./Weather"
 import Currency from "./Currency"
 
-import SessionContainer from './SessionContainer/SessionContainer'
+import SessionContainer from './SessionContainer'
 
 const Home = () => {
   return (
