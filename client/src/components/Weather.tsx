@@ -66,13 +66,12 @@ const Weather = () => {
       </div>
       <div>
         <h3>5 Day Weather</h3>
-        <div>
-          <hr />
+        <div className="flex overflow-y-auto gap-4">
           {days.map((day: number) =>
-            <div key={`day-${day}`}>
+            <div key={`day-${day}`} className="border rounded-lg">
               {weatherData && weatherData.daily &&
                 <>
-                  <div>Date : {dateFormat(weatherData.daily.time[day] ?? "")}</div>
+                  <div>{dateFormat(weatherData.daily.time[day] ?? "")}</div>
                   <div>Weather Code : {weatherData.daily.weathercode[day]} </div>
                   <div>Max Temp : {weatherData.daily.temperature_2m_max[day]} </div>
                   <div>Min Temp : {weatherData.daily.temperature_2m_min[day]} </div>
