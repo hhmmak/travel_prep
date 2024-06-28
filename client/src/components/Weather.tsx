@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import axios from 'axios';
 import dateFormat from "../util/dateFormat";
+import ClearSkyDay from "./weatherIcons/ClearSkyDay";
+import WeatherIcon from "./weatherIcons/WeatherIcon";
 
 type WeatherDataObject = {
   latitude?: number,
@@ -59,11 +61,14 @@ const Weather = () => {
 
   return (
     <div>
-      <div>
-        <h3>Current Weather</h3>
-        <div>Temperature: {weatherData?.current_weather?.temperature} &deg;C</div>
-        <div>Weather: Clear Sky</div>
-      </div>
+      {weatherData.current_weather &&
+        <div>
+          <h3>Current Weather</h3>
+          <div>Temperature: {weatherData.current_weather.temperature} &deg;C</div>
+          <div>Weather Code : {weatherData.current_weather.weathercode} </div>
+          <WeatherIcon code={weatherData.current_weather.weathercode} />
+        </div>
+      }
       <div>
         <h3>5 Day Weather</h3>
         <div className="flex overflow-y-auto gap-4">
@@ -73,6 +78,7 @@ const Weather = () => {
                 <>
                   <div>{dateFormat(weatherData.daily.time[day] ?? "")}</div>
                   <div>Weather Code : {weatherData.daily.weathercode[day]} </div>
+                  <WeatherIcon code={weatherData.daily.weathercode[day]} />
                   <div>Max Temp : {weatherData.daily.temperature_2m_max[day]} </div>
                   <div>Min Temp : {weatherData.daily.temperature_2m_min[day]} </div>
                   <div>Apparent Max Temp : {weatherData.daily.apparent_temperature_max[day]} </div>
