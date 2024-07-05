@@ -1,10 +1,13 @@
 import Home from "./components/Home";
+import { LocationProvider } from "./components/hooks/LocationProvider";
 
 
 function App() {
   return (
     <div>
-      <Home />
+      <LocationProvider>
+        <Home />
+      </LocationProvider>
     </div>
   );
 }
