@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import axios from 'axios';
 import dateFormat from "../util/dateFormat";
-import ClearSkyDay from "./weatherIcons/ClearSkyDay";
 import WeatherIcon from "./weatherIcons/WeatherIcon";
+import { useLocation } from "./hooks/LocationService";
 
 type WeatherDataObject = {
   latitude?: number,
@@ -39,6 +39,7 @@ type WeatherDataObject = {
 
 const Weather = () => {
 
+  const { destination } = useLocation();
   const [weatherData, setWeatherData] = useState<WeatherDataObject>({})
   // lat, lon initiated to Tokyo, Japan
   const [lat, setLat] = useState<number>(35.6762)
@@ -49,6 +50,19 @@ const Weather = () => {
 
   useEffect(() => {
 
+    const destinationParsed = destination.replaceAll(/[^A-Za-z]+/g, '+').toLowerCase()
+
+    try{
+      axios.get(`https://nominatim.openstreetmap.org/search?q=${destinationParsed}&format=json`)
+        .then(res => {
+          setLat(res.data[0].lat)
+          setLon(res.data[0].lon)
+        })
+        .catch(err => console.log(err))
+    } catch (err) {
+      console.log(err)
+    }
+
     try {
       axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&timeformat=unixtime&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min&current_weather=true&timezone=GMT`)
         .then(res => setWeatherData(res.data))
@@ -57,15 +71,15 @@ const Weather = () => {
       console.log(err)
     }
 
-  }, [lat, lon]);
+  }, [destination, lat, lon]);
 
   return (
     <div>
       {weatherData.current_weather &&
         <div>
-          <h3>Current Weather</h3>
+          <h3>Current Weather at {destination}</h3>
           <div>Temperature: {weatherData.current_weather.temperature} &deg;C</div>
-          <div>Weather Code : {weatherData.current_weather.weathercode} </div>
+          {/* <div>Weather Code : {weatherData.current_weather.weathercode} </div> */}
           <WeatherIcon code={weatherData.current_weather.weathercode} />
         </div>
       }
@@ -77,7 +91,7 @@ const Weather = () => {
               {weatherData && weatherData.daily &&
                 <>
                   <div>{dateFormat(weatherData.daily.time[day] ?? "")}</div>
-                  <div>Weather Code : {weatherData.daily.weathercode[day]} </div>
+                  {/* <div>Weather Code : {weatherData.daily.weathercode[day]} </div> */}
                   <WeatherIcon code={weatherData.daily.weathercode[day]} />
                   <div>Max Temp : {weatherData.daily.temperature_2m_max[day]} </div>
                   <div>Min Temp : {weatherData.daily.temperature_2m_min[day]} </div>
