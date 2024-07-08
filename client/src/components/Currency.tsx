@@ -1,27 +1,22 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-type CurrencyDataType = {
-  base?: string
-  date?: string
-  motd?:{
-    [key: string]: number
-  }
-  rates?:{
-    [key: string]: number
-  }
-  success: boolean
+type CurrencyDataType<FromCurrency extends string> = {
+  date : string 
+} & {
+  [key in FromCurrency] : {[toCurrency: string]: number}
 }
 
 
 const Currency = () => {
 
-  const [currencyData, setCurrencyData] = useState<CurrencyDataType>({success: false})
+  const [currencyData, setCurrencyData] = useState<CurrencyDataType<"usd"> | null>(null)
 
   useEffect(() => {
-    axios.get(`https://api.exchangerate.host/latest?base=USD`)
+    axios.get(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json`)
       .then(res => 
         setCurrencyData(res.data)
+        // console.log(res.data)
       )
       .catch(err => console.error(err))
   },[]);
@@ -29,8 +24,14 @@ const Currency = () => {
   return (
     <div>
       <h2>Currency</h2>
-      <div>From USD to JPY : {currencyData.rates?.["JPY"]}</div>
-      <div>as recorded on {currencyData.date}</div>
+      { currencyData ?
+        <div>
+          <div>From USD to JPY : {currencyData && currencyData["usd"]["jpy"]}</div>
+          <div>as recorded on {currencyData.date}</div>
+        </div>
+        :
+        <div>Currency not available</div>
+      }
     </div>
   )
 }
