@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import currencyFormat from "../util/currencyFormat";
 
 type CurrencyDataType<FromCurrency extends string> = {
   date : string 
@@ -13,7 +14,7 @@ const Currency = () => {
   const [currencyData, setCurrencyData] = useState<CurrencyDataType<"usd"> | null>(null)
 
   useEffect(() => {
-    axios.get(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json`)
+    axios.get(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${"usd"}.json`)
       .then(res => 
         setCurrencyData(res.data)
         // console.log(res.data)
@@ -26,7 +27,7 @@ const Currency = () => {
       <h2>Currency</h2>
       { currencyData ?
         <div>
-          <div>From USD to JPY : {currencyData && currencyData["usd"]["jpy"]}</div>
+          <div>From USD to HKD : {currencyData && currencyFormat(currencyData["usd"]["hkd"])}</div>
           <div>as recorded on {currencyData.date}</div>
         </div>
         :
