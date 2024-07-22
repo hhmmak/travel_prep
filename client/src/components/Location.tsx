@@ -3,7 +3,7 @@ import { useLocation } from "./hooks/LocationService";
 
 const Location = () => {
 
-  const {origin, setOrigin, destination, setDestination} = useLocation();
+  const { setOrigin, setDestination} = useLocation();
 
   return (
     <div>
