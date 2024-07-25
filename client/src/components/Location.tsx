@@ -6,10 +6,10 @@ const Location = () => {
   const { setOrigin, setDestination} = useLocation();
 
   return (
-    <div>
-      <div>
-        <label htmlFor="origin-dropdown">Home Country : </label>
-        <select id="origin-dropdown" defaultValue="United States" onChange={(event) => setOrigin(event.target.value)}>
+    <div className="m-4 flex justify-around gap-3">
+      <div className="">
+        <label htmlFor="origin-dropdown" className="">Home Country : </label>
+        <select id="origin-dropdown" defaultValue="United States" onChange={(event) => setOrigin(event.target.value)} className="border p-1 w-72">
           {countries.sort().map(origin => (
             <option key={origin} value={origin}>
               {origin}
@@ -17,9 +17,9 @@ const Location = () => {
           ))}
         </select>
       </div>
-      <div>
+      <div className="">
         <label htmlFor="city-dropdown">Destination : </label>
-        <select id="city-dropdown" onChange={(event) => setDestination(event.target.value)}>
+        <select id="city-dropdown" onChange={(event) => setDestination(event.target.value)} className="border p-1 w-72">
           {Object.keys(citiesByContinent).map(continent => (
             <optgroup key={continent} label={continent}>
               {citiesByContinent[continent]

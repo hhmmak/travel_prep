@@ -24,11 +24,11 @@ const Currency = () => {
 
   return (
     <div>
-      <h2>Currency</h2>
+      <h2 className="text-xl my-4">Currency</h2>
       { currencyData ?
         <div>
           <div>From USD to HKD : {currencyData && currencyFormat(currencyData["usd"]["hkd"])}</div>
-          <div>as recorded on {currencyData.date}</div>
+          <div className="text-sm text-gray-500">as recorded on {currencyData.date}</div>
         </div>
         :
         <div>Currency not available</div>
