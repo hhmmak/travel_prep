@@ -77,27 +77,35 @@ const Weather = () => {
     <div>
       {weatherData.current_weather &&
         <div>
-          <h3>Current Weather at {destination}</h3>
-          <div>Temperature: {weatherData.current_weather.temperature} &deg;C</div>
+          <h2 className="text-lg my-4">Current Weather at <span className="italic font-bold">{destination}</span></h2>
           {/* <div>Weather Code : {weatherData.current_weather.weathercode} </div> */}
-          <WeatherIcon code={weatherData.current_weather.weathercode} />
+          <div className="flex flex-col items-center">
+            <WeatherIcon code={weatherData.current_weather.weathercode} />
+            <div>{weatherData.current_weather.temperature} &deg;C</div>
+          </div>
         </div>
       }
       <div>
-        <h3>5 Day Weather</h3>
-        <div className="flex overflow-y-auto gap-4">
+        <h2 className="text-xl my-4">5 Day Weather</h2>
+        <div className="flex overflow-x-auto gap-4">
           {days.map((day: number) =>
-            <div key={`day-${day}`} className="border rounded-lg">
+            <div key={`day-${day}`}>
               {weatherData && weatherData.daily &&
-                <>
+                <div className="border rounded-lg p-4 w-48">
                   <div>{dateFormat(weatherData.daily.time[day] ?? "")}</div>
                   {/* <div>Weather Code : {weatherData.daily.weathercode[day]} </div> */}
                   <WeatherIcon code={weatherData.daily.weathercode[day]} />
-                  <div>Max Temp : {weatherData.daily.temperature_2m_max[day]} </div>
-                  <div>Min Temp : {weatherData.daily.temperature_2m_min[day]} </div>
-                  <div>Apparent Max Temp : {weatherData.daily.apparent_temperature_max[day]} </div>
-                  <div>Apparent Min Temp : {weatherData.daily.apparent_temperature_min[day]} </div>
-                </>
+                  <div className="text-center">Temp</div>
+                  <div className="grid grid-cols-2 justify-items-center">
+                    <div className="text-blue-500">{weatherData.daily.temperature_2m_min[day]}</div>
+                    <div className="text-red-500">{weatherData.daily.temperature_2m_max[day]}</div>
+                  </div>
+                  <div className="text-center">Apparent Temp</div>
+                  <div className="grid grid-cols-2 justify-items-center">
+                    <div className="text-blue-500">{weatherData.daily.apparent_temperature_min[day]}</div>
+                    <div className="text-red-500">{weatherData.daily.apparent_temperature_max[day]}</div>
+                  </div>
+                </div>
               }
             </div>
           )}

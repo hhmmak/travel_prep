@@ -44,9 +44,9 @@ const WeatherIcon = ({code}: {code: number}) => {
   
 
   return(
-    <div className="flex flex-col">
+    <div className="p-2 flex flex-col items-center gap-2">
       {weatherImg[code] ?? <Cloudy />}
-      {weatherDetail[code] ?? "Not Available"}
+      {weatherDetail[code] ?? <div className="text-gray-400">Not Available</div>}
     </div>
   )
 
