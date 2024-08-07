@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import axios from 'axios';
 import dateFormat from "../util/dateFormat";
 import WeatherIcon from "./weatherIcons/WeatherIcon";
-import { useLocation } from "./hooks/LocationService";
+import { useLocation } from "../hooks/LocationService";
 
 type WeatherDataObject = {
   latitude?: number,

@@ -1,5 +1,5 @@
 import Home from "./components/Home";
-import { LocationProvider } from "./components/hooks/LocationProvider";
+import { LocationProvider } from "./hooks/LocationProvider";
 
 
 function App() {

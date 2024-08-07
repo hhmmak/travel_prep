@@ -1,5 +1,5 @@
 import {countries, citiesByContinent} from "../util/locationNames"
-import { useLocation } from "./hooks/LocationService";
+import { useLocation } from "../hooks/LocationService";
 
 const Location = () => {
 
