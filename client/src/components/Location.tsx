@@ -3,7 +3,13 @@ import { useLocation } from "../hooks/LocationService";
 
 const Location = () => {
 
-  const { setOrigin, setDestination} = useLocation();
+  const { setOrigin, setDestinationCity, setDestinationCountry} = useLocation();
+
+  const setDestination = (destination: string) => {
+    const [city, country] = destination.split("-")
+    setDestinationCity(city)
+    setDestinationCountry(country)
+  }
 
   return (
     <div className="m-4 flex justify-around gap-3">
@@ -30,7 +36,7 @@ const Location = () => {
                   return a.country.localeCompare(b.country);
                 })
                 .map(({ city, country }) => (
-                  <option key={`${city}-${country}`} value={`${city}, ${country}`}>
+                  <option key={`${city}-${country}`} value={`${city}-${country}`}>
                     {city}, {country}
                   </option>
                 ))}

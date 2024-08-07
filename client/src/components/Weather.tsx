@@ -39,7 +39,7 @@ type WeatherDataObject = {
 
 const Weather = () => {
 
-  const { destination } = useLocation();
+  const { destinationCity, destinationCountry } = useLocation();
   const [weatherData, setWeatherData] = useState<WeatherDataObject>({})
   // lat, lon initiated to Tokyo, Japan
   const [lat, setLat] = useState<number>(35.6762)
@@ -50,7 +50,7 @@ const Weather = () => {
 
   useEffect(() => {
 
-    const destinationParsed = destination.replaceAll(/[^A-Za-z]+/g, '+').toLowerCase()
+    const destinationParsed = (`${destinationCity}-${destinationCountry}`).replaceAll(/[^A-Za-z]+/g, '+').toLowerCase()
 
     try{
       axios.get(`https://nominatim.openstreetmap.org/search?q=${destinationParsed}&format=json`)
@@ -71,13 +71,13 @@ const Weather = () => {
       console.log(err)
     }
 
-  }, [destination, lat, lon]);
+  }, [destinationCity, destinationCountry, lat, lon]);
 
   return (
     <div>
       {weatherData.current_weather &&
         <div>
-          <h2 className="text-lg my-4">Current Weather at <span className="italic font-bold">{destination}</span></h2>
+          <h2 className="text-lg my-4">Current Weather at <span className="italic font-bold">{destinationCity}, {destinationCountry}</span></h2>
           {/* <div>Weather Code : {weatherData.current_weather.weathercode} </div> */}
           <div className="flex flex-col items-center">
             <WeatherIcon code={weatherData.current_weather.weathercode} />
