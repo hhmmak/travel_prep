@@ -1,4 +1,4 @@
-const Setting = () => {
+const SettingOptions = () => {
   return (
     <div className="m-4 p-4 border-l-4 border-b-4 rounded-lg">
       <label htmlFor="city-dropdown">Destination : </label>
@@ -13,4 +13,4 @@ const Setting = () => {
     </div>
   )
 }
-export default Setting
+export default SettingOptions
