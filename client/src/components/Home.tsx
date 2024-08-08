@@ -11,7 +11,7 @@ import SessionContainer from './SessionContainer'
 
 const Home = () => {
 
-  const [showSetting, setShowSetting] = useState<Boolean>(true)
+  const [showSetting, setShowSetting] = useState<Boolean>(false)
   
   return (
     <div>
