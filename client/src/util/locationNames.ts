@@ -5,7 +5,7 @@ export const citiesByContinent: { [key: string]: { city: string, country: string
     { city: 'Shanghai', country: 'China' },
     { city: 'Taipei', country: 'Taiwan' },
     { city: 'Tokyo', country: 'Japan' },
-    { city: 'Seoul', country: 'Korea' }
+    { city: 'Seoul', country: 'South Korea' }
   ],
   Europe: [
     { city: 'Berlin', country: 'Germany' },
