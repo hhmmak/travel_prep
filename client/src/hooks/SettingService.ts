@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 
 type SettingContextType = {
   showSetting: boolean,
-  setShowSetting: (show: boolean) => void,
+  setShowSetting: (show: boolean | ((oldShow: boolean) => boolean)) => void,
   tempUnit: "C" | "F",
   setTempUnit: (tempUnit: "C"| "F") => void
 }

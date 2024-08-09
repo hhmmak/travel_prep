@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useSetting } from "../hooks/SettingService"
 
 import Weather from "./Weather"
 import Currency from "./Currency"
@@ -10,14 +10,14 @@ import SessionContainer from './SessionContainer'
 
 
 const Home = () => {
-
-  const [showSetting, setShowSetting] = useState<Boolean>(false)
   
+  const { showSetting } = useSetting()
+
   return (
     <div>
       <div>
         <h1 className="text-2xl text-center m-5">Travel Prep</h1>
-        <SettingToggle setShowSetting={setShowSetting}/>
+        <SettingToggle />
       </div>
       { showSetting &&
         <SettingOptions />

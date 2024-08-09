@@ -1,9 +1,12 @@
 import icon from "../assets/settings-icon.svg"
+import { useSetting } from "../hooks/SettingService"
 
-const SettingToggle = ({setShowSetting} : {setShowSetting: React.Dispatch<React.SetStateAction<Boolean>>}) => {
+const SettingToggle = () => {
+
+  const { setShowSetting } = useSetting()
 
   const displaySettingOptions = () => {
-    setShowSetting(show => !show)
+    setShowSetting((show: boolean) => !show)
   }
 
   return (
