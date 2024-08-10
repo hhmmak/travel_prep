@@ -6,7 +6,7 @@ const SettingToggle = () => {
   const { setShowSetting } = useSetting()
 
   const displaySettingOptions = () => {
-    setShowSetting((show: boolean) => !show)
+    setShowSetting()
   }
 
   return (
