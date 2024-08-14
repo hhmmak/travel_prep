@@ -21,18 +21,17 @@ const Currency = () => {
   useEffect(() => {
     setFromCurrency(currencyCode[origin]?.toLowerCase())
     setToCurrency(currencyCode[destinationCity]?.toLowerCase() || currencyCode[destinationCountry]?.toLowerCase())
-    axios.get(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${fromCurrency}.json`)
-      .then(res => 
+    axios.get(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${currencyCode[origin]?.toLowerCase()}.json`)
+      .then(res => {
         setCurrencyData(res.data)
-        // console.log(res.data)
-      )
+      })
       .catch(err => console.error(err))
   },[destinationCity, destinationCountry, fromCurrency, origin]);
 
   return (
     <div>
       <h2 className="text-xl my-4">Currency</h2>
-      { currencyData ?
+      { currencyData && currencyData[fromCurrency] && currencyData[fromCurrency][toCurrency] ?
         <div>
           <div>From {fromCurrency.toUpperCase()} to {toCurrency.toUpperCase()} : {currencyData && currencyFormat(currencyData[fromCurrency][toCurrency])}</div>
           <div className="text-sm text-gray-500">as recorded on {currencyData.date}</div>
