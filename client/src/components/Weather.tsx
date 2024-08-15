@@ -3,6 +3,7 @@ import axios from 'axios';
 import dateFormat from "../util/dateFormat";
 import WeatherIcon from "./weatherIcons/WeatherIcon";
 import { useLocation } from "../hooks/LocationService";
+import { useSetting } from "../hooks/SettingService";
 
 type WeatherDataObject = {
   latitude?: number,
@@ -40,6 +41,7 @@ type WeatherDataObject = {
 const Weather = () => {
 
   const { destinationCity, destinationCountry } = useLocation();
+  const { tempUnit } = useSetting();
   const [weatherData, setWeatherData] = useState<WeatherDataObject>({})
   // lat, lon initiated to Tokyo, Japan
   const [lat, setLat] = useState<number>(35.6762)
@@ -64,14 +66,14 @@ const Weather = () => {
     }
 
     try {
-      axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&timeformat=unixtime&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min&current_weather=true&timezone=GMT`)
+      axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&${tempUnit === "F" && "temperature_unit=fahrenheit&"}timeformat=unixtime&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min&current_weather=true&timezone=GMT`)
         .then(res => setWeatherData(res.data))
         .catch(err => console.log(err))
     } catch (err) {
       console.log(err)
     }
 
-  }, [destinationCity, destinationCountry, lat, lon]);
+  }, [destinationCity, destinationCountry, lat, lon, tempUnit]);
 
   return (
     <div>
