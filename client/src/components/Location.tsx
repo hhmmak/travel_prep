@@ -1,4 +1,5 @@
-import {countries, citiesByContinent} from "../util/locationNames"
+import { citiesByContinent } from "../util/locationNames"
+import { countries } from "../util/countries"
 import { useLocation } from "../hooks/LocationService";
 
 const Location = () => {
@@ -16,7 +17,7 @@ const Location = () => {
       <div className="">
         <label htmlFor="origin-dropdown" className="">Home Country : </label>
         <select id="origin-dropdown" defaultValue="United States" onChange={(event) => setOrigin(event.target.value)} className="border p-1 w-72">
-          {countries.sort().map(origin => (
+          {Object.keys(countries).map(origin => (
             <option key={origin} value={origin}>
               {origin}
             </option>

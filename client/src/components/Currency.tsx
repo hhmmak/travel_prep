@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import currencyFormat from "../util/currencyFormat";
 import { useLocation } from "../hooks/LocationService";
-import currencyCode from "../util/currencyCode";
+import { countries } from "../util/countries"
 
 type CurrencyDataType = {
   date : string 
@@ -19,9 +19,9 @@ const Currency = () => {
 
   // Currency API credit to: https://github.com/fawazahmed0/exchange-api
   useEffect(() => {
-    setFromCurrency(currencyCode[origin]?.toLowerCase())
-    setToCurrency(currencyCode[destinationCity]?.toLowerCase() || currencyCode[destinationCountry]?.toLowerCase())
-    axios.get(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${currencyCode[origin]?.toLowerCase()}.json`)
+    setFromCurrency(countries[origin].currency?.toLowerCase())
+    setToCurrency(countries[destinationCity]?.currency?.toLowerCase() || countries[destinationCountry].currency?.toLowerCase())
+    axios.get(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${countries[origin].currency?.toLowerCase()}.json`)
       .then(res => {
         setCurrencyData(res.data)
       })
@@ -37,7 +37,7 @@ const Currency = () => {
           <div className="text-sm text-gray-500">as recorded on {currencyData.date}</div>
         </div>
         :
-        <div>Currency not available</div>
+        <div>Currency exchange rate not available</div>
       }
     </div>
   )
